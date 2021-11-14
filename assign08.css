@@ -1,0 +1,155 @@
+html * { 
+    -ms-text-size-adjust: 100%; 
+    -webkit-text-size-adjust: 100%; 
+    font-family: Tahoma, sans-serif;
+    margin: 0 auto;
+    text-align: left;
+    color: #064780;
+}
+
+body {
+    margin: 0 auto; 
+    font-family: Georgia, sans-serif;
+    background-color: #064780;
+}
+
+h2 {
+    color: #81014F;
+} 
+
+h3 {
+    color: #81014F;
+}
+
+#main {
+    padding: 3em;
+}
+
+.wrapper {
+    background: rgba(237, 237, 244, 1);    
+}
+
+.logowrap {
+    border-bottom: 0.1em solid rgba(0,0,0,.1);
+    box-shadow: 0em 0.1em 0.1em 0em rgba(0,0,0,.1);
+    display: block;
+    width: 100vw; 
+    background-color: #CDEFFF;
+}
+
+.head {
+    position: relative;
+    top: 0px;
+    width: 100vw;
+}
+
+.logodiv {
+    position: absolute;
+    top: 0px;
+    width: 25vw;
+    padding-top: 2rem;
+}
+
+
+
+
+.paymentform {
+    display: flex;
+    border: 0.5em solid rgba(216, 142, 3, 0.959);
+    border-radius: 0.5em;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1em;
+}
+
+#purchasestable {
+    display: flex;
+    flex-direction: row;
+}
+
+#table1 {
+    /*width: 50%;
+    display: inline-table;*/
+    margin: 1em;
+}
+
+#table1 {
+    /*width: 50%;
+    display: inline-table;*/
+    margin: 1em;
+}
+
+.acw3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*width: 50vw;*/
+    padding-top: 1em;
+}
+
+.acw3 > * {
+    margin: 1.5em;
+}
+
+.acw4 {
+   /* display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;*/
+    padding-top: 1em;
+}
+
+.acw5 {
+   /* display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;*/
+    padding-top: 1em;
+}
+
+.acw6 {
+   /* display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;*/
+    padding-top: 1em;
+}
+
+footer {
+    background-color: #3517df;
+    display: flex;
+    height: 4em;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; 
+    color: azure;
+}
+
+button {
+    padding: 1.3em 3em;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: #000;
+    background-color: #fff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+   }
+   
+   button:hover {
+    background-color: #2EE59D;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    transform: translateY(-7px);
+   }
+   
+   button:active {
+    transform: translateY(-1px);
+   }
+

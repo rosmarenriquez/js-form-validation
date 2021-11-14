@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase a Baseball Shirt</title>
+    <link rel="stylesheet" href="assign08.css"/>
+</head>
+
+<!--Body starts here-->
+
+<body>
+    <div class="wrapper">
+        <header class="logowrap">
+            <div class="head">
+                <img src="head.png" alt="principalHead" width="500" height="500"/>
+            </div> 
+            <div class="logodiv">
+                    <img src="mlb-logo.png" alt="Mlb Logo"
+                         width="500" height="400" class="logo">
+            </div> 
+        </header>
+
+        <section id="main">
+            <h2 style="display:none">Payment Form</h2>
+            <div id="acwpaymentform">
+                <form onSubmit="submitAlert()" onReset="resetBorders()" 
+                      class="paymentform" method="post" id="form">
+                    <h3>Please select and enter the number of items you would like to buy in each category to pay in advance:</h3>
+                    <div id="purchasestable">
+
+                        
+                        <table id="table1">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">Qty:</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input onInput="addPurchase(this.value)" 
+                                               name="yankees" id="145" value="0"
+                                               maxlength="2" size="2"/></td>
+                                    <td>Yankees Shirt</td>
+                                    <td>$145.00 per shirt</td>
+                                    <td><input type="checkbox" id="item_0" name="item" onClick="addPurchase(this.value)"></td>
+                                </tr>
+                                <tr>
+                                    <td><input onInput="addPurchase(this.value)" 
+                                               name="boston" id="133" value="0"
+                                               maxlength="2" size="2"/></td>
+                                    <td>Boston Shirt</td>
+                                    <td>$133.00 per shirt</td>
+                                    <td><input type="checkbox" id="item_1" name="item" onClick="addPurchase(this.value)" ></td>
+                                </tr>
+                                <tr>
+                                    <td><input onInput="addPurchase(this.value)"  
+                                               name="ball game" id="113" value="0"
+                                               maxlength="2" size="2"/></td>
+                                    <td>World Series ball game</td>
+                                    <td>$113.00 per ball</td>
+                                    <td><input type="checkbox" id="item_2" name="item" onClick="addPurchase(this.value)" ></td>
+                                </tr>
+                                <tr>
+                                    <td><input onInput="addPurchase(this.value)" 
+                                               name="orioles" id="122" value="0"
+                                               maxlength="2" size="2"/></td>
+                                    <td>Orioles Bat</td>
+                                    <td>$50.00 per bat</td>
+                                    <td><input type="checkbox" id="item_3" name="item" onClick="addPurchase(this.value)" ></td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div> 
+
+                    <div class="acw3">
+                        <div id="total">Total Items: 0</div>
+                        <div id="totalPay">Total to pay: $0.00</div>
+                    </div> 
+
+
+
+
+                    <div class="acw4">
+                        <input onfocus="resetFirstName()" name="first_name"
+                               onInput="validateFirstName(this.value)" required
+                               id="firstname" placeholder="First Name">
+                        <input onfocus="resetLastName()" name="last_name"
+                               onInput="validateLastName(this.value)" required 
+                               id="lastname" placeholder="Last Name">
+                        <input onfocus="resetPhone()" name="phone"
+                               onBlur="validatePhone(this.value)" required 
+                               id="phonenumber" placeholder="Phone Number">
+                        <input type="email" name="email" placeholder="Email">
+                    </div> 
+                    <div class="acw5">    
+                        <input onfocus="resetStreet()" name="streetaddress"
+                               onBlur="validateStreet(this.value)" required 
+                               id="streetaddress" placeholder="Street Address">
+                        <input onfocus="resetCity()" name="city"
+                               onInput="validateCity(this.value)" required 
+                               id="city" placeholder="City">
+                        <input onfocus="resetState()" name="state"
+                               onBlur="validateState(this.value)" required 
+                               id="state" placeholder="State Abbreviation">
+                        <input onfocus="resetZip()" name="zip"
+                               onBlur="validateZip(this.value)" required 
+                               id="zip" placeholder="Zip Code">
+                    </div> 
+                    <div class="acw6">
+                        <p>Credit card type:</p>
+                        <div>
+                          <input type="radio" id="Visa" name="card" value="Visa" checked>
+                          <label for="Visa">Visa</label>
+                        </div>
+
+                        <div>
+                          <input type="radio" id="mastercard" name="card" value="Mastercard">
+                          <label for="mastercard">Mastercard</label>
+                        </div>
+
+                        <div>
+                         <input type="radio" id="AmericanExpress" name="card" value="AmericanExpress">
+                         <label for="AmericanExpress">American Express</label>
+                        </div>
+
+                        <input onfocus="resetCardNum()" name="credit_card"
+                               onBlur="validateCardNum(this.value)" required 
+                               id="credit_card" placeholder="Credit Card Number">
+                        <input onfocus="resetExpDate()" name="exp_date"
+                               onBlur="validateExpDate(this.value)" required 
+                               id="exp_date" placeholder="Expiration Date">
+                        <button type="reset">Reset</button>
+                        <button type="submit">Submit</button>
+                    </div> 
+                </form>
+                <br>
+            </div>     
+        </section> 
+    
+        <!--JAVASCRIPT-->
+
+        <script>
+            window.onload = resetBorders()
+
+function addPurchase() {
+    
+    var purchaseArray = [Number(document.getElementById('145').value),
+        Number(document.getElementById('133').value),
+        Number(document.getElementById('113').value),
+        Number(document.getElementById('122').value),
+    ];
+    
+    var checks = [].filter.call(document.getElementsByName('item'), (c) => c.checked).map(c => c.value);
+    var filler = [];
+    var total = 0;
+    var runningTotal = 0;
+    var prices = [145, 133, 113, 50];
+    for (let index = 0; index < checks.length; index++) {
+        if(checks[index]){
+            filler.push(purchaseArray[index] * prices[index]);
+            total += purchaseArray[index];
+        }
+        
+    }
+    console.log(filler);
+    console.log(total);
+    
+    
+    
+   
+    for (i = 0; i<filler.length; i++)
+    {
+        runningTotal += filler[i];
+    }
+    
+    
+    
+    document.getElementById('total').innerHTML = 'Total Items: ' + total;
+    document.getElementById('totalPay').innerHTML = 'Total to pay: $' + runningTotal.toFixed(2);
+}
+
+function resetFirstName() {
+    // on focus, reset field placeholder.
+    document.getElementById('firstname').placeholder = 'First Name';
+}
+
+function validateFirstName(firstName) {
+
+    // Test the first name parameter against the regex. 
+    // Ensure field is not blank and begins with a letter.
+    if (/\w/.test(firstName))
+    {
+        document.getElementById('firstname').style.border = 'thin solid lightgrey';
+    } 
+    else
+    {
+        document.getElementById('firstname').value = '';
+        document.getElementById('firstname').placeholder = 'Invalid First Name';
+        document.getElementById('firstname').style.border = 'thin solid red';
+    }
+}
+
+function resetLastName() {
+    // on focus, reset field placeholder.
+    document.getElementById('lastname').placeholder = 'Last Name';
+}
+
+function validateLastName(lastName) {
+
+    // Test the last name parameter against the regex. 
+    // Ensure field is not blank and begins with a letter.
+    if (/\w/.test(lastName))
+    {
+        document.getElementById('lastname').style.border = 'thin solid lightgrey';
+    } 
+    else
+    {
+        document.getElementById('lastname').value = '';
+        document.getElementById('lastname').placeholder = 'Invalid Last Name';
+        document.getElementById('lastname').style.border = 'thin solid red';
+    }
+}
+
+function resetPhone() {
+    // on focus, reset field placeholder.
+    document.getElementById('phonenumber').placeholder = '208-555-5555';
+}
+
+function validatePhone(thePhone) {
+
+    // Test the phone number parameter against the regex. 
+    // Will accept 10 digits alone or with common phone number formats.
+    if (/^\s*((\d{10})|(\d{3}-\d{3}-\d{4})|(\(\d{3}\)\d{3}-\d{4})|(\(\d{3}\)\s\d{3}-\d{4}))(?!\S)/.test(thePhone))
+    {
+        document.getElementById('phonenumber').style.border = 'thin solid lightgrey';
+    } 
+    else
+    {
+        document.getElementById('phonenumber').value = '';
+        document.getElementById('phonenumber').placeholder = 'Invalid Phone Number';
+        document.getElementById('phonenumber').style.border = 'thin solid red';
+    }
+}
+
+function resetStreet() {
+    // on focus, reset field placeholder.
+    document.getElementById('streetaddress').placeholder = '# First Street Address';
+}
+
+function validateStreet(theStreet) {
+
+    // Test the street address parameter against the regex. 
+    // Ensure field is not blank and begins with a digit.
+    if (/\d/.test(theStreet))
+    {
+        document.getElementById('streetaddress').style.border = 'thin solid lightgrey';
+    } 
+    else
+    {
+        document.getElementById('streetaddress').value = '';
+        document.getElementById('streetaddress').placeholder = 'Invalid Street Address';
+        document.getElementById('streetaddress').style.border = 'thin solid red';
+    }
+}
+
+function resetCity() {
+    // on focus, reset field placeholder.
+    document.getElementById('city').placeholder = 'City Name';
+}
+
+function validateCity(theCity) {
+
+    // Test the city parameter against the regex. 
+    // Ensure field is not blank and begins with a letter.
+    if (/\w/.test(theCity))
+    {
+        document.getElementById('city').style.border = 'thin solid lightgrey';
+    } 
+    else
+    {
+        document.getElementById('city').value = '';
+        document.getElementById('city').placeholder = 'Invalid City Name';
+        document.getElementById('city').style.border = 'thin solid red';
+    }
+}
+
+function resetState() {
+    // on focus, reset field placeholder.
+    document.getElementById('state').placeholder = 'Capitalize State Abbrev.';
+}
+
+function validateState(theState) {
+
+    // Test the state abbreviation parameter against the regex. 
+    // ?!\S invalidates an extra letter. ^\s* allows only spaces at the beginning.
+    if (/^\s*(A[LKSZR]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[DLNA]|K[SY]|LA|M[EDHAINSOTP]|N[EVHJMYCD]|O[HKR]|P[WAR]|RI|S[CD]|T[NX]|UT|V[TAI]|W[AVIY])(?!\S)/.test(theState))
+    {
+        document.getElementById('state').style.border = 'thin solid lightgrey';
+    } 
+    else
+    {
+        document.getElementById('state').value = '';
+        document.getElementById('state').placeholder = 'Invalid State Abbrev.';
+        document.getElementById('state').style.border = 'thin solid red';
+    }
+}
+
+function resetZip() {
+    // on focus, reset field placeholder.
+    document.getElementById('zip').placeholder = '00000';
+}
+
+function validateZip(theZip) {
+
+    // Test the zip parameter against the regex. 
+    // Allow 5 digits or full postal zip with 9 digits.
+    if (/^\s*((\d{5})|(\d{5}-\d{4}))(?!\S)/.test(theZip))
+    {
+        document.getElementById('zip').style.border = 'thin solid lightgrey';
+    } 
+    else
+    {
+        document.getElementById('zip').value = '';
+        document.getElementById('zip').placeholder = 'Invalid Zip Code';
+        document.getElementById('zip').style.border = 'thin solid red';
+    }
+}
+
+function resetCardNum() {
+    // on focus, reset field placeholder.
+    document.getElementById('credit_card').placeholder = '1111 1111 1111 1111';
+}
+
+function validateCardNum(theCardNum) {
+
+    // Test the credit card number parameter against the regex. Allow 16 digits
+    // straight or in groups of four with one space between groups.
+    // ?!\S invalidates an extra digit. ^\s* allows only spaces at the beginning.
+    if (/^\s*\d{16}(?!\S)|^(\s+)?\d{4}(\s)\d{4}(\s)\d{4}(\s)\d{4}(?!\S)/.test(theCardNum))
+    {
+        document.getElementById('credit_card').style.border = 'thin solid lightgrey';
+    } 
+    else
+    {
+        document.getElementById('credit_card').value = '';
+        document.getElementById('credit_card').placeholder = 'Invalid Card Number';
+        document.getElementById('credit_card').style.border = 'thin solid red';
+    }
+}
+
+function resetExpDate() {
+    // on focus, reset field placeholder.
+    document.getElementById('exp_date').placeholder = '00/0000';
+}
+
+function validateExpDate(theExpDate) {
+
+    // Test the date parameter against the regex. 
+    // ?!\S invalidates an extra digit. ^\s* allows only spaces at the beginning.
+    if (/^\s*([1-9]|0[1-9]|1[012])\/\d{4}(?!\S)/.test(theExpDate))
+    {
+        document.getElementById('exp_date').style.border = 'thin solid lightgrey';
+    } 
+    else
+    {
+        document.getElementById('exp_date').value = '';
+        document.getElementById('exp_date').placeholder = 'Invalid Expiration Date';
+        document.getElementById('exp_date').style.border = 'thin solid red';
+    }
+}
+
+function resetBorders() {
+    // on click of reset button, remove any red borders and reset placeholder.
+    document.getElementById('firstname').style.border = 'thin solid lightgrey';
+    document.getElementById('firstname').value = '';
+    document.getElementById('firstname').placeholder = 'First Name';
+    document.getElementById('lastname').style.border = 'thin solid lightgrey';
+    document.getElementById('lastname').value = '';
+    document.getElementById('lastname').placeholder = 'Last Name';
+    document.getElementById('phonenumber').style.border = 'thin solid lightgrey';
+    document.getElementById('phonenumber').value = '';
+    document.getElementById('phonenumber').placeholder = 'Phone Number';
+    document.getElementById('streetaddress').style.border = 'thin solid lightgrey';
+    document.getElementById('streetaddress').value = '';
+    document.getElementById('streetaddress').placeholder = 'Street Address';
+    document.getElementById('city').style.border = 'thin solid lightgrey';
+    document.getElementById('city').value = '';
+    document.getElementById('city').placeholder = 'City';
+    document.getElementById('state').style.border = 'thin solid lightgrey';
+    document.getElementById('state').value = '';
+    document.getElementById('state').placeholder = 'State Abbreviation';
+    document.getElementById('zip').style.border = 'thin solid lightgrey';
+    document.getElementById('zip').value = '';
+    document.getElementById('zip').placeholder = 'Zip Code';
+    document.getElementById('credit_card').style.border = 'thin solid lightgrey';
+    document.getElementById('credit_card').value = '';
+    document.getElementById('credit_card').placeholder = 'Credit Card Number';
+    document.getElementById('exp_date').style.border = 'thin solid lightgrey';
+    document.getElementById('exp_date').value = '';
+    document.getElementById('exp_date').placeholder = 'Expiration Date';
+    document.getElementById('total').innerHTML = 'Total Items: 0';
+    document.getElementById('totalPay').innerHTML = 'Total to pay: $0.00';
+}
+
+function submitAlert() { 
+    // Display submit successful to the user in a popup window/alert.
+        alert("Submit Successful");
+}
+        </script>
+
+        <footer> 
+            &copy; 2021 | Rosmar Enriquez | CS 213 Web Engineering
+        </footer>
+    </div> 
+
+ <!--Body ends here-->
+
+</body>
+
+</html>
